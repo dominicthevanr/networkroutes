@@ -1,1 +1,762 @@
-
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_myNVA_name": {
+            "defaultValue": "myNVA",
+            "type": "String"
+        },
+        "namespaces_testdom_name": {
+            "defaultValue": "testdom",
+            "type": "String"
+        },
+        "dnszones_contosodom.xyz_name": {
+            "defaultValue": "contosodom.xyz",
+            "type": "String"
+        },
+        "routeTables_WebSubnetRT_name": {
+            "defaultValue": "WebSubnetRT",
+            "type": "String"
+        },
+        "routeTables_DataSubnetRT_name": {
+            "defaultValue": "DataSubnetRT",
+            "type": "String"
+        },
+        "virtualNetworks_DemoVnet_name": {
+            "defaultValue": "DemoVnet",
+            "type": "String"
+        },
+        "networkInterfaces_mynva254_name": {
+            "defaultValue": "mynva254",
+            "type": "String"
+        },
+        "publicIPAddresses_myNVA_ip_name": {
+            "defaultValue": "myNVA-ip",
+            "type": "String"
+        },
+        "NS_@_name": {
+            "defaultValue": "@",
+            "type": "String"
+        },
+        "SOA_@_name": {
+            "defaultValue": "@",
+            "type": "String"
+        },
+        "networkSecurityGroups_myNVA_nsg_name": {
+            "defaultValue": "myNVA-nsg",
+            "type": "String"
+        },
+        "queues_testd1_name": {
+            "defaultValue": "testd1",
+            "type": "String"
+        },
+        "subnets_Web_name": {
+            "defaultValue": "Web",
+            "type": "String"
+        },
+        "subnets_Data_name": {
+            "defaultValue": "Data",
+            "type": "String"
+        },
+        "subnets_Application_name": {
+            "defaultValue": "Application",
+            "type": "String"
+        },
+        "routes_DatatoAppSubnet_name": {
+            "defaultValue": "DatatoAppSubnet",
+            "type": "String"
+        },
+        "routes_WebsubettoAppSubnet_name": {
+            "defaultValue": "WebsubettoAppSubnet",
+            "type": "String"
+        },
+        "routes_WebSubet_to_DataSubnet_name": {
+            "defaultValue": "WebSubet-to-DataSubnet",
+            "type": "String"
+        },
+        "routes_DataSubnet_to_WebSubnet_name": {
+            "defaultValue": "DataSubnet-to-WebSubnet",
+            "type": "String"
+        },
+        "authorizationRules_test_name": {
+            "defaultValue": "test",
+            "type": "String"
+        },
+        "AuthorizationRules_RootManageSharedAccessKey_name": {
+            "defaultValue": "RootManageSharedAccessKey",
+            "type": "String"
+        },
+        "virtualMachines_myNVA_id": {
+            "defaultValue": "/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Compute/disks/myNVA_OsDisk_1_c63935635bc242c18402eaf86c0f7a0c",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Compute/virtualMachines/myNVA'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_myNVA_name')]",
+            "apiVersion": "2018-06-01",
+            "location": "eastus",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_DS1_v2"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "[concat(parameters('virtualMachines_myNVA_name'),'_OsDisk_1_c63935635bc242c18402eaf86c0f7a0c')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "storageAccountType": "Premium_LRS",
+                            "id": "[parameters('virtualMachines_myNVA_id')]"
+                        },
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_myNVA_name')]",
+                    "adminUsername": "AzureAdmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_mynva254_name'))]"
+                        }
+                    ]
+                },
+                "licenseType": "Windows_Server"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_mynva254_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/demorg/providers/Microsoft.Network/dnszones/contosodom.xyz'.",
+            "type": "Microsoft.Network/dnszones",
+            "name": "[parameters('dnszones_contosodom.xyz_name')]",
+            "apiVersion": "2018-05-01",
+            "location": "global",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "zoneType": "Public"
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/networkInterfaces/mynva254'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_mynva254_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "d80e4f50-cda8-4904-83f4-497655c16ca4",
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "etag": "W/\"0a9467c5-b28c-43fa-bb00-85a32d43ef8c\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "privateIPAddress": "10.1.1.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_myNVA_ip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_DemoVnet_name'), parameters('subnets_Application_name'))]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": [],
+                    "appliedDnsServers": [],
+                    "internalDomainNameSuffix": "zz3ek13nchyufb5zilhr2crmqa.bx.internal.cloudapp.net"
+                },
+                "macAddress": "00-0D-3A-4F-BD-5F",
+                "enableAcceleratedNetworking": false,
+                "enableIPForwarding": true,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_myNVA_nsg_name'))]"
+                },
+                "primary": true,
+                "tapConfigurations": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_myNVA_ip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_DemoVnet_name'), parameters('subnets_Application_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_myNVA_nsg_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/networkSecurityGroups/myNVA-nsg'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_myNVA_nsg_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "20f34b6b-3c17-492d-ae72-64f5c3880bbc",
+                "securityRules": [],
+                "defaultSecurityRules": [
+                    {
+                        "name": "AllowVnetInBound",
+                        "etag": "W/\"d74e0808-9421-4c5c-9b86-574ebcca9b5b\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow inbound traffic from all VMs in VNET",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "VirtualNetwork",
+                            "destinationAddressPrefix": "VirtualNetwork",
+                            "access": "Allow",
+                            "priority": 65000,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowAzureLoadBalancerInBound",
+                        "etag": "W/\"d74e0808-9421-4c5c-9b86-574ebcca9b5b\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow inbound traffic from azure load balancer",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "AzureLoadBalancer",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 65001,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "DenyAllInBound",
+                        "etag": "W/\"d74e0808-9421-4c5c-9b86-574ebcca9b5b\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Deny all inbound traffic",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 65500,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowVnetOutBound",
+                        "etag": "W/\"d74e0808-9421-4c5c-9b86-574ebcca9b5b\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow outbound traffic from all VMs to all VMs in VNET",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "VirtualNetwork",
+                            "destinationAddressPrefix": "VirtualNetwork",
+                            "access": "Allow",
+                            "priority": 65000,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowInternetOutBound",
+                        "etag": "W/\"d74e0808-9421-4c5c-9b86-574ebcca9b5b\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow outbound traffic from all VMs to Internet",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 65001,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "DenyAllOutBound",
+                        "etag": "W/\"d74e0808-9421-4c5c-9b86-574ebcca9b5b\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Deny all outbound traffic",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 65500,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/publicIPAddresses/myNVA-ip'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "sku": {
+                "name": "Basic",
+                "tier": "Regional"
+            },
+            "name": "[parameters('publicIPAddresses_myNVA_ip_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "f32f19c0-20e9-4249-9c53-de60ebe6a284",
+                "ipAddress": "40.121.58.248",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "ipTags": []
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/routeTables/DataSubnetRT'.",
+            "type": "Microsoft.Network/routeTables",
+            "name": "[parameters('routeTables_DataSubnetRT_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "disableBgpRoutePropagation": false,
+                "routes": [
+                    {
+                        "name": "DataSubnet-to-WebSubnet",
+                        "etag": "W/\"54f79c81-b2c2-4b38-9088-d5484d602351\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "10.1.0.0/24",
+                            "nextHopType": "VirtualAppliance",
+                            "nextHopIpAddress": "10.1.1.4"
+                        }
+                    },
+                    {
+                        "name": "DatatoAppSubnet",
+                        "etag": "W/\"54f79c81-b2c2-4b38-9088-d5484d602351\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "10.1.1.0/24",
+                            "nextHopType": "VirtualAppliance",
+                            "nextHopIpAddress": "10.1.1.4"
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/routeTables/WebSubnetRT'.",
+            "type": "Microsoft.Network/routeTables",
+            "name": "[parameters('routeTables_WebSubnetRT_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "disableBgpRoutePropagation": false,
+                "routes": [
+                    {
+                        "name": "WebSubet-to-DataSubnet",
+                        "etag": "W/\"a6a61ffe-4d57-4bf8-b7f1-cfc6c6a34ab2\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "10.1.2.0/24",
+                            "nextHopType": "VirtualAppliance",
+                            "nextHopIpAddress": "10.1.1.4"
+                        }
+                    },
+                    {
+                        "name": "WebsubettoAppSubnet",
+                        "etag": "W/\"a6a61ffe-4d57-4bf8-b7f1-cfc6c6a34ab2\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "10.1.1.0/24",
+                            "nextHopType": "VirtualAppliance",
+                            "nextHopIpAddress": "10.1.1.4"
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/virtualNetworks/DemoVnet'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_DemoVnet_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "6f457ace-11ad-42f1-87f9-42cf1e0a2c80",
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.1.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "Application",
+                        "etag": "W/\"cf197fc8-cecb-42c4-af0b-d951612e04fd\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "10.1.1.0/24",
+                            "serviceEndpoints": [],
+                            "delegations": []
+                        }
+                    },
+                    {
+                        "name": "Web",
+                        "etag": "W/\"cf197fc8-cecb-42c4-af0b-d951612e04fd\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "10.1.0.0/24",
+                            "routeTable": {
+                                "id": "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_WebSubnetRT_name'))]"
+                            },
+                            "serviceEndpoints": [],
+                            "delegations": []
+                        }
+                    },
+                    {
+                        "name": "Data",
+                        "etag": "W/\"cf197fc8-cecb-42c4-af0b-d951612e04fd\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "10.1.2.0/24",
+                            "routeTable": {
+                                "id": "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_DataSubnetRT_name'))]"
+                            },
+                            "serviceEndpoints": [],
+                            "delegations": []
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_WebSubnetRT_name'))]",
+                "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_DataSubnetRT_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.ServiceBus/namespaces/testdom'.",
+            "type": "Microsoft.ServiceBus/namespaces",
+            "sku": {
+                "name": "Basic",
+                "tier": "Basic"
+            },
+            "name": "[parameters('namespaces_testdom_name')]",
+            "apiVersion": "2017-04-01",
+            "location": "West US",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "metricId": "[concat('e52b344c-aa7b-46fc-8daf-39e32eeeeea9:', parameters('namespaces_testdom_name'))]",
+                "createdAt": "2019-01-22T03:51:23.267Z",
+                "updatedAt": "2019-01-22T03:51:45.823Z",
+                "serviceBusEndpoint": "[concat('https://', parameters('namespaces_testdom_name'),'.servicebus.windows.net:443/')]",
+                "status": "Active"
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/demorg/providers/Microsoft.Network/dnszones/contosodom.xyz/NS/@'.",
+            "type": "Microsoft.Network/dnszones/NS",
+            "name": "[concat(parameters('dnszones_contosodom.xyz_name'), '/', parameters('NS_@_name'))]",
+            "apiVersion": "2018-05-01",
+            "scale": null,
+            "properties": {
+                "TTL": 172800,
+                "NSRecords": [
+                    {
+                        "nsdname": "ns1-08.azure-dns.com."
+                    },
+                    {
+                        "nsdname": "ns2-08.azure-dns.net."
+                    },
+                    {
+                        "nsdname": "ns3-08.azure-dns.org."
+                    },
+                    {
+                        "nsdname": "ns4-08.azure-dns.info."
+                    }
+                ],
+                "targetResource": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/dnszones', parameters('dnszones_contosodom.xyz_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/demorg/providers/Microsoft.Network/dnszones/contosodom.xyz/SOA/@'.",
+            "type": "Microsoft.Network/dnszones/SOA",
+            "name": "[concat(parameters('dnszones_contosodom.xyz_name'), '/', parameters('SOA_@_name'))]",
+            "apiVersion": "2018-05-01",
+            "scale": null,
+            "properties": {
+                "TTL": 3600,
+                "SOARecord": {
+                    "email": "azuredns-hostmaster.microsoft.com",
+                    "expireTime": 2419200,
+                    "host": "ns1-08.azure-dns.com.",
+                    "minimumTTL": 300,
+                    "refreshTime": 3600,
+                    "retryTime": 300,
+                    "serialNumber": 1
+                },
+                "targetResource": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/dnszones', parameters('dnszones_contosodom.xyz_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/routeTables/DataSubnetRT/routes/DataSubnet-to-WebSubnet'.",
+            "type": "Microsoft.Network/routeTables/routes",
+            "name": "[concat(parameters('routeTables_DataSubnetRT_name'), '/', parameters('routes_DataSubnet_to_WebSubnet_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "10.1.0.0/24",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "10.1.1.4"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_DataSubnetRT_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/routeTables/DataSubnetRT/routes/DatatoAppSubnet'.",
+            "type": "Microsoft.Network/routeTables/routes",
+            "name": "[concat(parameters('routeTables_DataSubnetRT_name'), '/', parameters('routes_DatatoAppSubnet_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "10.1.1.0/24",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "10.1.1.4"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_DataSubnetRT_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/routeTables/WebSubnetRT/routes/WebSubet-to-DataSubnet'.",
+            "type": "Microsoft.Network/routeTables/routes",
+            "name": "[concat(parameters('routeTables_WebSubnetRT_name'), '/', parameters('routes_WebSubet_to_DataSubnet_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "10.1.2.0/24",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "10.1.1.4"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_WebSubnetRT_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/routeTables/WebSubnetRT/routes/WebsubettoAppSubnet'.",
+            "type": "Microsoft.Network/routeTables/routes",
+            "name": "[concat(parameters('routeTables_WebSubnetRT_name'), '/', parameters('routes_WebsubettoAppSubnet_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "10.1.1.0/24",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "10.1.1.4"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_WebSubnetRT_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/virtualNetworks/DemoVnet/subnets/Application'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_DemoVnet_name'), '/', parameters('subnets_Application_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "10.1.1.0/24",
+                "serviceEndpoints": [],
+                "delegations": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_DemoVnet_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/virtualNetworks/DemoVnet/subnets/Web'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_DemoVnet_name'), '/', parameters('subnets_Web_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "10.1.0.0/24",
+                "routeTable": {
+                    "id": "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_WebSubnetRT_name'))]"
+                },
+                "serviceEndpoints": [],
+                "delegations": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_DemoVnet_name'))]",
+                "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_WebSubnetRT_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourceGroups/DemoRG/providers/Microsoft.Network/virtualNetworks/DemoVnet/subnets/Data'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_DemoVnet_name'), '/', parameters('subnets_Data_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "10.1.2.0/24",
+                "routeTable": {
+                    "id": "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_DataSubnetRT_name'))]"
+                },
+                "serviceEndpoints": [],
+                "delegations": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_DemoVnet_name'))]",
+                "[resourceId('Microsoft.Network/routeTables', parameters('routeTables_DataSubnetRT_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourcegroups/DemoRG/providers/Microsoft.ServiceBus/namespaces/testdom/AuthorizationRules/RootManageSharedAccessKey'.",
+            "type": "Microsoft.ServiceBus/namespaces/AuthorizationRules",
+            "name": "[concat(parameters('namespaces_testdom_name'), '/', parameters('AuthorizationRules_RootManageSharedAccessKey_name'))]",
+            "apiVersion": "2017-04-01",
+            "location": "West US",
+            "scale": null,
+            "properties": {
+                "rights": [
+                    "Listen",
+                    "Manage",
+                    "Send"
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_testdom_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourcegroups/DemoRG/providers/Microsoft.ServiceBus/namespaces/testdom/queues/testd1'.",
+            "type": "Microsoft.ServiceBus/namespaces/queues",
+            "name": "[concat(parameters('namespaces_testdom_name'), '/', parameters('queues_testd1_name'))]",
+            "apiVersion": "2017-04-01",
+            "location": "West US",
+            "scale": null,
+            "properties": {
+                "lockDuration": "PT30S",
+                "maxSizeInMegabytes": 1024,
+                "requiresDuplicateDetection": false,
+                "requiresSession": false,
+                "defaultMessageTimeToLive": "P14D",
+                "deadLetteringOnMessageExpiration": false,
+                "enableBatchedOperations": true,
+                "duplicateDetectionHistoryTimeWindow": "PT10M",
+                "maxDeliveryCount": 10,
+                "status": "Active",
+                "autoDeleteOnIdle": "P10675199DT2H48M5.4775807S",
+                "enablePartitioning": false,
+                "enableExpress": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_testdom_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/e52b344c-aa7b-46fc-8daf-39e32eeeeea9/resourcegroups/DemoRG/providers/Microsoft.ServiceBus/namespaces/testdom/queues/testd1/authorizationRules/test'.",
+            "type": "Microsoft.ServiceBus/namespaces/queues/authorizationRules",
+            "name": "[concat(parameters('namespaces_testdom_name'), '/', parameters('queues_testd1_name'), '/', parameters('authorizationRules_test_name'))]",
+            "apiVersion": "2017-04-01",
+            "location": "West US",
+            "scale": null,
+            "properties": {
+                "rights": [
+                    "Listen",
+                    "Send"
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_testdom_name'))]",
+                "[resourceId('Microsoft.ServiceBus/namespaces/queues', parameters('namespaces_testdom_name'), parameters('queues_testd1_name'))]"
+            ]
+        }
+    ]
+}
