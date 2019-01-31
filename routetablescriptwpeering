@@ -1,0 +1,724 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualNetworks_vnet0_name": {
+            "defaultValue": "vnet0",
+            "type": "String"
+        },
+        "virtualNetworks_vnet1_name": {
+            "defaultValue": "vnet1",
+            "type": "String"
+        },
+        "virtualNetworks_vnet2_name": {
+            "defaultValue": "vnet2",
+            "type": "String"
+        },
+        "publicIPAddresses_vnet0gw1pip1_name": {
+            "defaultValue": "vnet0gw1pip1",
+            "type": "String"
+        },
+        "publicIPAddresses_vnet1gw1pip1_name": {
+            "defaultValue": "vnet1gw1pip1",
+            "type": "String"
+        },
+        "publicIPAddresses_vnet2gw1pip1_name": {
+            "defaultValue": "vnet2gw1pip1",
+            "type": "String"
+        },
+        "virtualNetworkGateways_vnet0gw1_name": {
+            "defaultValue": "vnet0gw1",
+            "type": "String"
+        },
+        "virtualNetworkGateways_vnet1gw1_name": {
+            "defaultValue": "vnet1gw1",
+            "type": "String"
+        },
+        "virtualNetworkGateways_vnet2gw1_name": {
+            "defaultValue": "vnet2gw1",
+            "type": "String"
+        },
+        "subnets_vnet0subnet0_name": {
+            "defaultValue": "vnet0subnet0",
+            "type": "String"
+        },
+        "subnets_vnet1subnet0_name": {
+            "defaultValue": "vnet1subnet0",
+            "type": "String"
+        },
+        "subnets_vnet2subnet0_name": {
+            "defaultValue": "vnet2subnet0",
+            "type": "String"
+        },
+        "subnets_GatewaySubnet_name": {
+            "defaultValue": "GatewaySubnet",
+            "type": "String"
+        },
+        "subnets_GatewaySubnet_name_1": {
+            "defaultValue": "GatewaySubnet",
+            "type": "String"
+        },
+        "subnets_GatewaySubnet_name_2": {
+            "defaultValue": "GatewaySubnet",
+            "type": "String"
+        },
+        "virtualNetworkPeerings_vnet0tovnet1_name": {
+            "defaultValue": "vnet0tovnet1",
+            "type": "String"
+        },
+        "virtualNetworkPeerings_vnet0tovnet2_name": {
+            "defaultValue": "vnet0tovnet2",
+            "type": "String"
+        },
+        "virtualNetworkPeerings_vnet1tovnet0_name": {
+            "defaultValue": "vnet1tovnet0",
+            "type": "String"
+        },
+        "virtualNetworkPeerings_vnet2tovnet0_name": {
+            "defaultValue": "vnet2tovnet0",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/publicIPAddresses/vnet0gw1pip1'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "sku": {
+                "name": "Basic",
+                "tier": "Regional"
+            },
+            "name": "[parameters('publicIPAddresses_vnet0gw1pip1_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "29fe1e28-98d4-4087-867b-6435f1e8dbf7",
+                "ipAddress": "40.121.177.244",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "ipTags": []
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/publicIPAddresses/vnet1gw1pip1'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "sku": {
+                "name": "Basic",
+                "tier": "Regional"
+            },
+            "name": "[parameters('publicIPAddresses_vnet1gw1pip1_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "3a326e8c-39f8-499e-85b6-6ca5afb46370",
+                "ipAddress": "40.87.9.102",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "ipTags": []
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/publicIPAddresses/vnet2gw1pip1'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "sku": {
+                "name": "Basic",
+                "tier": "Regional"
+            },
+            "name": "[parameters('publicIPAddresses_vnet2gw1pip1_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "d31c01d1-8853-4291-870b-487a21fb1242",
+                "ipAddress": "104.45.144.140",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "ipTags": []
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworkGateways/vnet0gw1'.",
+            "type": "Microsoft.Network/virtualNetworkGateways",
+            "name": "[parameters('virtualNetworkGateways_vnet0gw1_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "resourceGuid": "7ddeabc2-f4d6-4033-8fca-fa33fa99a20b",
+                "ipConfigurations": [
+                    {
+                        "name": "default",
+                        "etag": "W/\"7997deef-53bf-445b-8e6e-e22aa1513073\"",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_vnet0gw1pip1_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_vnet0_name'), parameters('subnets_GatewaySubnet_name'))]"
+                            }
+                        }
+                    }
+                ],
+                "sku": {
+                    "name": "Basic",
+                    "tier": "Basic",
+                    "capacity": 2
+                },
+                "gatewayType": "Vpn",
+                "vpnType": "RouteBased",
+                "enableBgp": false,
+                "activeActive": false,
+                "vpnClientConfiguration": {
+                    "vpnClientProtocols": [
+                        "SSTP"
+                    ],
+                    "vpnClientRootCertificates": [],
+                    "vpnClientRevokedCertificates": [],
+                    "vpnClientIpsecPolicies": []
+                },
+                "bgpSettings": {
+                    "asn": 65515,
+                    "bgpPeeringAddress": "192.168.0.254",
+                    "peerWeight": 0
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_vnet0gw1pip1_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_vnet0_name'), parameters('subnets_GatewaySubnet_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworkGateways/vnet1gw1'.",
+            "type": "Microsoft.Network/virtualNetworkGateways",
+            "name": "[parameters('virtualNetworkGateways_vnet1gw1_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "resourceGuid": "7171afa4-c08a-4bc8-8901-d7650e0eba2a",
+                "ipConfigurations": [
+                    {
+                        "name": "default",
+                        "etag": "W/\"bcd2e23b-cadf-435f-9469-2d664207a506\"",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_vnet1gw1pip1_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_vnet1_name'), parameters('subnets_GatewaySubnet_name_1'))]"
+                            }
+                        }
+                    }
+                ],
+                "sku": {
+                    "name": "Basic",
+                    "tier": "Basic",
+                    "capacity": 2
+                },
+                "gatewayType": "Vpn",
+                "vpnType": "RouteBased",
+                "enableBgp": false,
+                "activeActive": false,
+                "vpnClientConfiguration": {
+                    "vpnClientProtocols": [
+                        "SSTP"
+                    ],
+                    "vpnClientRootCertificates": [],
+                    "vpnClientRevokedCertificates": [],
+                    "vpnClientIpsecPolicies": []
+                },
+                "bgpSettings": {
+                    "asn": 65515,
+                    "bgpPeeringAddress": "192.168.1.254",
+                    "peerWeight": 0
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_vnet1gw1pip1_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_vnet1_name'), parameters('subnets_GatewaySubnet_name_1'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworkGateways/vnet2gw1'.",
+            "type": "Microsoft.Network/virtualNetworkGateways",
+            "name": "[parameters('virtualNetworkGateways_vnet2gw1_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "resourceGuid": "ba1a3329-2147-43b5-9b9c-d1cc23eb378c",
+                "ipConfigurations": [
+                    {
+                        "name": "default",
+                        "etag": "W/\"8b6447ad-d7d8-4f9b-964f-dd86d75410ab\"",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_vnet2gw1pip1_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_vnet2_name'), parameters('subnets_GatewaySubnet_name_2'))]"
+                            }
+                        }
+                    }
+                ],
+                "sku": {
+                    "name": "Basic",
+                    "tier": "Basic",
+                    "capacity": 2
+                },
+                "gatewayType": "Vpn",
+                "vpnType": "RouteBased",
+                "enableBgp": false,
+                "activeActive": false,
+                "vpnClientConfiguration": {
+                    "vpnClientProtocols": [
+                        "SSTP"
+                    ],
+                    "vpnClientRootCertificates": [],
+                    "vpnClientRevokedCertificates": [],
+                    "vpnClientIpsecPolicies": []
+                },
+                "bgpSettings": {
+                    "asn": 65515,
+                    "bgpPeeringAddress": "192.168.2.254",
+                    "peerWeight": 0
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_vnet2gw1pip1_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_vnet2_name'), parameters('subnets_GatewaySubnet_name_2'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet0'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_vnet0_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "4864e0b0-d920-49a5-a076-780928252925",
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "192.168.0.0/24"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[concat(parameters('virtualNetworks_vnet0_name'),'subnet0')]",
+                        "etag": "W/\"0bff1317-62c2-487f-ae05-2bb77117f00d\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "192.168.0.0/25",
+                            "delegations": []
+                        }
+                    },
+                    {
+                        "name": "GatewaySubnet",
+                        "etag": "W/\"0bff1317-62c2-487f-ae05-2bb77117f00d\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "192.168.0.248/29",
+                            "serviceEndpoints": [],
+                            "delegations": []
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [
+                    {
+                        "name": "[concat(parameters('virtualNetworks_vnet0_name'),'tovnet1')]",
+                        "etag": "W/\"0bff1317-62c2-487f-ae05-2bb77117f00d\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "peeringState": "Connected",
+                            "remoteVirtualNetwork": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name'))]"
+                            },
+                            "allowVirtualNetworkAccess": true,
+                            "allowForwardedTraffic": true,
+                            "allowGatewayTransit": false,
+                            "useRemoteGateways": false,
+                            "remoteAddressSpace": {
+                                "addressPrefixes": [
+                                    "192.168.1.0/24"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "[concat(parameters('virtualNetworks_vnet0_name'),'tovnet2')]",
+                        "etag": "W/\"0bff1317-62c2-487f-ae05-2bb77117f00d\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "peeringState": "Connected",
+                            "remoteVirtualNetwork": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet2_name'))]"
+                            },
+                            "allowVirtualNetworkAccess": true,
+                            "allowForwardedTraffic": true,
+                            "allowGatewayTransit": false,
+                            "useRemoteGateways": false,
+                            "remoteAddressSpace": {
+                                "addressPrefixes": [
+                                    "192.168.2.0/24"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet2_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet1'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_vnet1_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "ab9cad22-72dd-48a2-80d4-96c2e30cc5cf",
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "192.168.1.0/24"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[concat(parameters('virtualNetworks_vnet1_name'),'subnet0')]",
+                        "etag": "W/\"db485113-4bb1-44d3-bc84-94c8d8ade67f\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "192.168.1.0/25",
+                            "delegations": []
+                        }
+                    },
+                    {
+                        "name": "GatewaySubnet",
+                        "etag": "W/\"db485113-4bb1-44d3-bc84-94c8d8ade67f\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "192.168.1.248/29",
+                            "serviceEndpoints": [],
+                            "delegations": []
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [
+                    {
+                        "name": "[concat(parameters('virtualNetworks_vnet1_name'),'tovnet0')]",
+                        "etag": "W/\"db485113-4bb1-44d3-bc84-94c8d8ade67f\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "peeringState": "Connected",
+                            "remoteVirtualNetwork": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet0_name'))]"
+                            },
+                            "allowVirtualNetworkAccess": true,
+                            "allowForwardedTraffic": true,
+                            "allowGatewayTransit": false,
+                            "useRemoteGateways": false,
+                            "remoteAddressSpace": {
+                                "addressPrefixes": [
+                                    "192.168.0.0/24"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet0_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet2'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_vnet2_name')]",
+            "apiVersion": "2018-10-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "1bc93225-0a60-4819-976e-8144c9b81cb0",
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "192.168.2.0/24"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[concat(parameters('virtualNetworks_vnet2_name'),'subnet0')]",
+                        "etag": "W/\"577c5f70-d77f-42b7-975a-9d28d87a09fd\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "192.168.2.0/25",
+                            "delegations": []
+                        }
+                    },
+                    {
+                        "name": "GatewaySubnet",
+                        "etag": "W/\"577c5f70-d77f-42b7-975a-9d28d87a09fd\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "192.168.2.248/29",
+                            "serviceEndpoints": [],
+                            "delegations": []
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [
+                    {
+                        "name": "[concat(parameters('virtualNetworks_vnet2_name'),'tovnet0')]",
+                        "etag": "W/\"577c5f70-d77f-42b7-975a-9d28d87a09fd\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "peeringState": "Connected",
+                            "remoteVirtualNetwork": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet0_name'))]"
+                            },
+                            "allowVirtualNetworkAccess": true,
+                            "allowForwardedTraffic": true,
+                            "allowGatewayTransit": false,
+                            "useRemoteGateways": false,
+                            "remoteAddressSpace": {
+                                "addressPrefixes": [
+                                    "192.168.0.0/24"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet0_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet0/subnets/vnet0subnet0'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_vnet0_name'), '/', parameters('subnets_vnet0subnet0_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "192.168.0.0/25",
+                "delegations": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet0_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet0/subnets/GatewaySubnet'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_vnet0_name'), '/', parameters('subnets_GatewaySubnet_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "192.168.0.248/29",
+                "serviceEndpoints": [],
+                "delegations": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet0_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet0/virtualNetworkPeerings/vnet0tovnet1'.",
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "name": "[concat(parameters('virtualNetworks_vnet0_name'), '/', parameters('virtualNetworkPeerings_vnet0tovnet1_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "peeringState": "Connected",
+                "remoteVirtualNetwork": {
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name'))]"
+                },
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": true,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteAddressSpace": {
+                    "addressPrefixes": [
+                        "192.168.1.0/24"
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet0_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet0/virtualNetworkPeerings/vnet0tovnet2'.",
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "name": "[concat(parameters('virtualNetworks_vnet0_name'), '/', parameters('virtualNetworkPeerings_vnet0tovnet2_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "peeringState": "Connected",
+                "remoteVirtualNetwork": {
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet2_name'))]"
+                },
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": true,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteAddressSpace": {
+                    "addressPrefixes": [
+                        "192.168.2.0/24"
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet0_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet2_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet1/subnets/vnet1subnet0'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_vnet1_name'), '/', parameters('subnets_vnet1subnet0_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "192.168.1.0/25",
+                "delegations": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet1/subnets/GatewaySubnet'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_vnet1_name'), '/', parameters('subnets_GatewaySubnet_name_1'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "192.168.1.248/29",
+                "serviceEndpoints": [],
+                "delegations": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet1/virtualNetworkPeerings/vnet1tovnet0'.",
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "name": "[concat(parameters('virtualNetworks_vnet1_name'), '/', parameters('virtualNetworkPeerings_vnet1tovnet0_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "peeringState": "Connected",
+                "remoteVirtualNetwork": {
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet0_name'))]"
+                },
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": true,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteAddressSpace": {
+                    "addressPrefixes": [
+                        "192.168.0.0/24"
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet1_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet0_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet2/subnets/vnet2subnet0'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_vnet2_name'), '/', parameters('subnets_vnet2subnet0_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "192.168.2.0/25",
+                "delegations": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet2_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet2/subnets/GatewaySubnet'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_vnet2_name'), '/', parameters('subnets_GatewaySubnet_name_2'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "192.168.2.248/29",
+                "serviceEndpoints": [],
+                "delegations": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet2_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/a7363123-e4ff-4124-9238-af637fcb2224/resourceGroups/vnetRGdemo/providers/Microsoft.Network/virtualNetworks/vnet2/virtualNetworkPeerings/vnet2tovnet0'.",
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "name": "[concat(parameters('virtualNetworks_vnet2_name'), '/', parameters('virtualNetworkPeerings_vnet2tovnet0_name'))]",
+            "apiVersion": "2018-10-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "peeringState": "Connected",
+                "remoteVirtualNetwork": {
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet0_name'))]"
+                },
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": true,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteAddressSpace": {
+                    "addressPrefixes": [
+                        "192.168.0.0/24"
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet2_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_vnet0_name'))]"
+            ]
+        }
+    ]
+}
